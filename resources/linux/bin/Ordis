@@ -1,0 +1,18 @@
+#!/bin/sh
+set -eu
+
+if [ "${ORDIS_AI_BIN:-}" != "" ]; then
+  exec "$ORDIS_AI_BIN" "$@"
+fi
+
+for executable in \
+  "/opt/Ordis/Ordis" \
+  "/opt/Ordis/Ordis"
+do
+  if [ -x "$executable" ]; then
+    exec "$executable" "$@"
+  fi
+done
+
+echo "Ordis: installed app executable was not found under /opt/Ordis" >&2
+exit 127
